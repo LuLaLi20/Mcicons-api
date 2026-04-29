@@ -1,3 +1,3 @@
 # Mcicons-api
 
-> .[!NOTE]
+> [!NOTE]
