@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > **Obtén iconos de Minecraft directamente** 🚀
 > 
-> La API devuelve una redirección 302 directa a la imagen, perfecta para usar en etiquetas `<img>`.
+> La API sirve la imagen directamente, perfecta para usar en etiquetas `<img>`.
 > - **Base URL:** https://api.lulali20.com/Mcicons/
 > - **Sin autenticación requerida**
 > - **Respuestas rápidas y directas**
@@ -13,7 +13,7 @@
 ## ✨ Características
 
 - ⚡ Acceso instantáneo a iconos de Minecraft
-- 🖼️ Redirección directa (302) a imágenes
+- 🖼️ Imágenes servidas directamente
 - 📦 Uso directo en etiquetas `<img>`
 - 🔧 Compatible con cualquier lenguaje de programación
 - 🌐 Fácil de integrar en tus proyectos
@@ -42,7 +42,7 @@ document.body.appendChild(img);
 > const img = new Image();
 > img.onload = () => console.log('Imagen cargada');
 > img.onerror = () => console.error('Imagen no encontrada');
-> img.src = 'https://api.lulali20.com/Mcicons/items/diamond';
+> img.src = 'https://api.lulali20.com/Mcicons/items/diamond.png';
 > ```
 
 ### Uso en Python
@@ -51,10 +51,10 @@ document.body.appendChild(img);
 import requests
 
 url = 'https://api.lulali20.com/Mcicons/items/diamond'
-r = requests.get(url, allow_redirects=True)
+r = requests.get(url)
 
-# Obtener la URL final de la imagen
-print(r.url)  # → URL final de la imagen
+# La imagen se devuelve directamente
+print(r.status_code)  # → 200
 
 # Guardar la imagen
 with open('diamond.png', 'wb') as f:
@@ -80,29 +80,27 @@ Obtén el ícono de cualquier ítem o bloque de Minecraft.
 ### Ejemplos de URLs
 
 ```
-https://api.lulali20.com/Mcicons/items/diamond
-https://api.lulali20.com/Mcicons/blocks/stone
-https://api.lulali20.com/Mcicons/diamond
+https://api.lulali20.com/Mcicons/items/diamond.png
+https://api.lulali20.com/Mcicons/blocks/stone.png
+https://api.lulali20.com/Mcicons/diamond.png
 ```
 
 ### Respuesta
 
-La API devuelve un redirect **302** directo a la URL de la imagen.
+La API devuelve la imagen directamente con `Content-Type: image/png` o `image/webp`.
 
 ```
-Status: 302 Found
-Location: [URL de la imagen]
+Status: 200 OK
+Content-Type: image/png
+Content-Length: [tamaño en bytes]
 ```
-
-> [!WARNING]
-> Asegúrate de usar `allow_redirects=True` en librerías como `requests` (Python) para seguir automáticamente la redirección.
 
 ## ⚠️ Códigos de Error
 
 | Código | Significado |
 |--------|------------|
-| **302** | ✅ Éxito. Redirección a la URL de la imagen |
-| **404** | ❌ Ícono no encontrado en la base de datos |
+| **200** | ✅ Éxito. Imagen servida directamente |
+| **404** | ❌ Ícono no encontrado |
 | **500** | ❌ Error interno del servidor |
 
 ## 🧊 Demo en Vivo
