@@ -1,61 +1,140 @@
 # 🎮 Mcicons API
 
 > [!IMPORTANT]
-> **Usa la API de Mcicons** 🚀
+> **Obtén iconos de Minecraft directamente** 🚀
 > 
-> ¡Es mucho más cómodo y práctico!
-> - **API:** https://api.lulali20.com/Mcicons/
-> - **Documentación:** https://api.lulali20.com/documentacion/Mcicons
-> - Usar la API me ayuda a mantener y mejorar este proyecto
+> La API devuelve una redirección 302 directa a la imagen, perfecta para usar en etiquetas `<img>`.
+> - **Base URL:** https://api.lulali20.com/Mcicons/
+> - **Sin autenticación requerida**
+> - **Respuestas rápidas y directas**
 > 
-> ¡Gracias por tu apoyo! 💙
+> ¡Gracias por usar Mcicons-api! 💙
 
 ## ✨ Características
 
-- ⚡ Acceso rápido y sencillo a iconos de Minecraft
-- 📦 Respuestas en formato JSON
-- 🔧 Fácil de integrar en tus proyectos
-- 🌐 Compatible con cualquier lenguaje de programación
+- ⚡ Acceso instantáneo a iconos de Minecraft
+- 🖼️ Redirección directa (302) a imágenes
+- 📦 Uso directo en etiquetas `<img>`
+- 🔧 Compatible con cualquier lenguaje de programación
+- 🌐 Fácil de integrar en tus proyectos
 
-## 🚀 Guía de Uso
+## 🚀 Guía de Uso Rápida
 
-### Instalación
+### Uso directo en HTML
 
-```bash
-npm install mcicons-api
+```html
+<img src="https://api.lulali20.com/Mcicons/items/diamond" alt="Diamond">
 ```
 
-### Ejemplo básico
+### Uso en JavaScript
 
 ```javascript
-const mcicons = require('mcicons-api');
-
-// Obtener un ícono
-mcicons.getIcon('diamond')
-  .then(icon => console.log(icon))
-  .catch(err => console.error(err));
+// Crear una imagen dinámicamente
+const img = document.createElement('img');
+img.src = 'https://api.lulali20.com/Mcicons/items/diamond';
+img.alt = 'Diamond';
+document.body.appendChild(img);
 ```
 
 > [!TIP]
-> Puedes usar async/await para un código más limpio:
+> Puedes usar async/await para verificar que la imagen cargó correctamente:
 > ```javascript
-> const icon = await mcicons.getIcon('diamond');
+> const img = new Image();
+> img.onload = () => console.log('Imagen cargada');
+> img.onerror = () => console.error('Imagen no encontrada');
+> img.src = 'https://api.lulali20.com/Mcicons/items/diamond';
 > ```
 
-### Endpoints principales
+### Uso en Python
 
-| Endpoint | Descripción |
-|----------|-------------|
-| `/items` | Obtiene lista de ítems |
-| `/blocks` | Obtiene lista de bloques |
-| `/icon/:id` | Obtiene un ícono específico |
+```python
+import requests
+
+url = 'https://api.lulali20.com/Mcicons/items/diamond'
+r = requests.get(url, allow_redirects=True)
+
+# Obtener la URL final de la imagen
+print(r.url)  # → URL final de la imagen
+
+# Guardar la imagen
+with open('diamond.png', 'wb') as f:
+    f.write(r.content)
+```
+
+## 📡 API Reference
+
+### Endpoint Principal
+
+Obtén el ícono de cualquier ítem o bloque de Minecraft.
+
+**GET** `https://api.lulali20.com/Mcicons/{categoria}/{icon_id}`  
+**GET** `https://api.lulali20.com/Mcicons/{icon_id}`
+
+### Parámetros
+
+| Parámetro | Tipo | Descripción | Estado |
+|-----------|------|-------------|--------|
+| `categoria` | string | Categoría del ícono (ej: `blocks`, `items`) | Opcional |
+| `icon_id` | string | Identificador del ícono (ej: `diamond`) | **Requerido** |
+
+### Ejemplos de URLs
+
+```
+https://api.lulali20.com/Mcicons/items/diamond
+https://api.lulali20.com/Mcicons/blocks/stone
+https://api.lulali20.com/Mcicons/diamond
+```
+
+### Respuesta
+
+La API devuelve un redirect **302** directo a la URL de la imagen.
+
+```
+Status: 302 Found
+Location: [URL de la imagen]
+```
 
 > [!WARNING]
-> Asegúrate de incluir un `User-Agent` en tus requests para evitar limitaciones de rate limit.
+> Asegúrate de usar `allow_redirects=True` en librerías como `requests` (Python) para seguir automáticamente la redirección.
 
-## 📚 Documentación Completa
+## ⚠️ Códigos de Error
 
-Para más información detallada sobre parámetros, autenticación y ejemplos avanzados, visita la [documentación oficial](https://api.lulali20.com/documentacion/Mcicons)
+| Código | Significado |
+|--------|------------|
+| **302** | ✅ Éxito. Redirección a la URL de la imagen |
+| **404** | ❌ Ícono no encontrado en la base de datos |
+| **500** | ❌ Error interno del servidor |
+
+## 🧊 Demo en Vivo
+
+Prueba la API directamente:
+
+```html
+<select id="category">
+  <option value="items">Items</option>
+  <option value="blocks">Blocks</option>
+</select>
+<input type="text" id="iconId" placeholder="ej: diamond" value="diamond">
+<button onclick="loadIcon()">Cargar Ícono</button>
+<img id="result" alt="Preview">
+
+<script>
+function loadIcon() {
+  const category = document.getElementById('category').value;
+  const iconId = document.getElementById('iconId').value;
+  const url = `https://api.lulali20.com/Mcicons/${category}/${iconId}`;
+  document.getElementById('result').src = url;
+}
+</script>
+```
+
+## 💡 Casos de Uso
+
+- 🎮 Wikis de Minecraft
+- 🛍️ Tiendas online de gaming
+- 📱 Aplicaciones móviles de Minecraft
+- 🎨 Generadores de contenido
+- 📊 Dashboards y paneles de administración
 
 ## 🤝 Contribuciones
 
@@ -78,7 +157,7 @@ Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más det
 
 Si encuentras algún problema o tienes preguntas:
 - 📧 Abre un [issue](https://github.com/LuLaLi20/Mcicons-api/issues)
-- 💬 Consulta la [documentación](https://api.lulali20.com/documentacion/Mcicons)
+- 💬 Visita la [documentación oficial](https://api.lulali20.com/documentacion/Mcicons)
 
 ---
 
