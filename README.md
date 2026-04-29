@@ -149,10 +149,6 @@ function loadIcon() {
 > [!NOTE]
 > Por favor, asegúrate de que tus cambios pasen los tests antes de enviar un PR.
 
-## 📝 Licencia
-
-Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
 ## 🆘 Soporte
 
 Si encuentras algún problema o tienes preguntas:
@@ -162,3 +158,5 @@ Si encuentras algún problema o tienes preguntas:
 ---
 
 ¡Esperamos que disfrutes usando Mcicons-api! 🎉
+
+## By LuLaLi20
